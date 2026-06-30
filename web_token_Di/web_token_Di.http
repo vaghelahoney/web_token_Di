@@ -1,0 +1,6 @@
+@web_token_Di_HostAddress = http://localhost:5195
+
+GET {{web_token_Di_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
