@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using web_token_Di.Models;
+using web_token_Di.Models.DTOs;
 
 namespace web_token_Di.Data
 {
@@ -10,5 +11,8 @@ namespace web_token_Di.Data
             : base(options)
         {
         }
+
+      public DbSet<EmployeeModel> Employee { get; set; }
+
     }
 }
