@@ -6,21 +6,38 @@ using Microsoft.IdentityModel.Tokens;
 using web_token_Di.Data;
 using web_token_Di.Models;
 using web_token_Di.Repositories;
+using web_token_Di.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Configure Database Context
+// Configure Shared Database Context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Tenant Resolution Services
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITenantService, TenantService>();
 
 // Configure ASP.NET Core Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Configure JWT Bearer Authentication
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") 
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var jwtSettings = builder.Configuration.GetSection("JWT");
 builder.Services.AddAuthentication(options =>
 {
@@ -43,6 +60,9 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer(); 
@@ -59,8 +79,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Authentication middleware MUST be added before Authorization
+app.UseCors(myAllowSpecificOrigins); 
 app.UseAuthentication();
 app.UseAuthorization();
 

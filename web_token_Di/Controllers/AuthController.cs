@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using web_token_Di.Models.DTOs;
 using web_token_Di.Repositories;
 
