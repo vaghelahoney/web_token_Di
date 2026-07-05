@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace web_token_Di.Models.DTOs
 {
-    public class EmployeeModel 
+    public class EmployeeModel :IMustHaveTenant
     {
         [Key]
         public int Id { get; set; }

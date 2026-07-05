@@ -1,9 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace web_token_Di.Models
 {
     public interface IMustHaveTenant
     {
-        Guid TenantId { get; set; }
+        public Guid TenantId { get; set; }
     }
 }
