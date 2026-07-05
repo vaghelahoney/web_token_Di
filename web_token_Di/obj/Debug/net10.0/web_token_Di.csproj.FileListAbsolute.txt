@@ -74,7 +74,6 @@ E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\refint\web_token_Di.dll
 E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\web_token_Di.pdb
 E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\web_token_Di.genruntimeconfig.cache
 E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\ref\web_token_Di.dll
-E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\Humanizer.dll
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\Microsoft.Build.Framework.dll
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
@@ -162,3 +161,5 @@ E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 E:\Dotnet\web_token_Di\web_token_Di\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\web_token_Di.sourcelink.json
+E:\Dotnet\web_token_Di\web_token_Di\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
