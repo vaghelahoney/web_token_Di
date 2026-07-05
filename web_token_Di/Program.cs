@@ -6,14 +6,19 @@ using Microsoft.IdentityModel.Tokens;
 using web_token_Di.Data;
 using web_token_Di.Models;
 using web_token_Di.Repositories;
+using web_token_Di.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Configure Database Context
+// Configure Shared Database Context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure Tenant Resolution Services
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITenantService, TenantService>();
 
 // Configure ASP.NET Core Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

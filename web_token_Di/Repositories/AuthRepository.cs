@@ -36,7 +36,8 @@ namespace web_token_Di.Repositories
                 Email = model.Email,
                 Name = model.Name,
                 Address = model.Address,
-                PhoneNumber = model.MobileNumber
+                PhoneNumber = model.MobileNumber,
+                TenantId = model.TenantId
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -76,6 +77,7 @@ namespace web_token_Di.Repositories
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
+                new Claim("TenantId", user.TenantId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

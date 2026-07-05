@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using web_token_Di.Data;
 using web_token_Di.Models.DTOs;
 
@@ -53,7 +53,7 @@ namespace web_token_Di.Repositories
 
         public async Task<EmployeeModel?> GetEmployeeByIdAsync(int id)
         {
-            return await _context.Employee.FindAsync(id);
+            return await _context.Employee.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> UpdateEmployeeAsync(EmployeeModel entity)

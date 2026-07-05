@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace web_token_Di.Models.DTOs
 {
-    public class EmployeeModel
+    public class EmployeeModel 
     {
         [Key]
         public int Id { get; set; }
@@ -25,10 +26,10 @@ namespace web_token_Di.Models.DTOs
         [Required]
         public DateTime CreatedDate { get; set; }
 
-
         [Required]
         public decimal Price { get; set; }
 
-
+        [Required]
+        public Guid TenantId { get; set; }
     }
 }
