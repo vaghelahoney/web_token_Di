@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 using web_token_Di.Data;
 using web_token_Di.Models;
 using web_token_Di.Repositories;
@@ -64,6 +66,28 @@ builder.Services.AddScoped<IEmployeeRepositories, EmployeeRepositories>();
 
 
 
+// Configure Rate Limiting
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.ContentType = "application/json";
+        await context.HttpContext.Response.WriteAsJsonAsync(new
+        {
+            statusCode = 429,
+            message = "Too many requests. Please try again later."
+        }, cancellationToken: token);
+    };
+
+    options.AddFixedWindowLimiter(policyName: "ApiPolicy", fixedWindowOptions =>
+    {
+        fixedWindowOptions.PermitLimit = 10;
+        fixedWindowOptions.Window = TimeSpan.FromMinutes(1);
+        fixedWindowOptions.QueueLimit = 0;
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer(); 
 builder.Services.AddSwaggerGen();
@@ -80,6 +104,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors(myAllowSpecificOrigins); 
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 

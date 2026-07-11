@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using web_token_Di.Models.DTOs;
 using web_token_Di.Repositories;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace web_token_Di.Controllers
 {
@@ -16,6 +17,7 @@ namespace web_token_Di.Controllers
             _repository = repository;
         }
 
+        [EnableRateLimiting("ApiPolicy")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
