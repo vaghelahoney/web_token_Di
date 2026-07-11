@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using web_token_Di.Models.DTOs;
 using web_token_Di.Repositories;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace web_token_Di.Controllers
 {
@@ -33,6 +34,7 @@ namespace web_token_Di.Controllers
             return Ok(new { Message = "User registered successfully!" });
         }
 
+        [EnableRateLimiting("ApiPolicy")]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
