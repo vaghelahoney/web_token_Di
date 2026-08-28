@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using web_token_Di.Data;
+using web_token_Di.Migrations;
 using web_token_Di.Models.DTOs;
 
 namespace web_token_Di.Repositories
@@ -38,11 +39,10 @@ namespace web_token_Di.Repositories
 
         public async Task<bool> FindDublicateEmployeeAsync(string name, int id)
         {
-            if (string.IsNullOrWhiteSpace(name)) {
-            
-                 return  await _context.Employee.AnyAsync(x => Convert.ToString(x.Name) == Convert.ToString(name) && x.Id != id);
+            if (!string.IsNullOrWhiteSpace(name)) {
+               return false;
             }
-            return false;
+             return  await _context.Employee.AnyAsync(x => Convert.ToString(x.Name) == Convert.ToString(name) && x.Id != id);
         }
 
         public async Task<IList<EmployeeModel>> GetAllEmployeeAsync()
@@ -53,7 +53,8 @@ namespace web_token_Di.Repositories
 
         public async Task<EmployeeModel?> GetEmployeeByIdAsync(int id)
         {
-            return await _context.Employee.FirstOrDefaultAsync(x => x.Id == id);
+            IQueryable<EmployeeModel> employees = _context.Employee;
+            return await    employees.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> UpdateEmployeeAsync(EmployeeModel entity)
