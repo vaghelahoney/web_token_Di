@@ -11,10 +11,12 @@ namespace web_token_Di.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepositories _repository;
+        private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeRepositories repository)
+        public EmployeeController(IEmployeeRepositories repository, ILogger<EmployeeController> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [EnableRateLimiting("ApiPolicy")]
@@ -28,8 +30,17 @@ namespace web_token_Di.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            _logger.LogInformation("Retrieving employee with ID {EmployeeId}", id);
+            if (id <= 0)
+            {
+                throw new ArgumentException("Employee ID must be greater than zero.", nameof(id));
+            }
+
             var employee = await _repository.GetEmployeeByIdAsync(id);
-            if (employee == null) return NotFound();
+            if (employee == null)
+            {
+                throw new KeyNotFoundException($"Employee with ID {id} was not found.");
+            }
             return Ok(employee);
         }
 
